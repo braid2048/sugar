@@ -3,7 +3,6 @@ package kuaishou
 import (
 	"context"
 	"fmt"
-	"github.com/fatih/structs"
 	"github.com/halo2024/sugar/conv/types"
 	"github.com/halo2024/sugar/conv/utils"
 
@@ -51,7 +50,7 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 		Channel:   req.Channel,
 		Request: &types.ChannelRequestData{
 			ReqType: types.RequestTypeHttp,
-			ReqData: structs.Map(convReq.Req),
+			ReqData: convReq.Req,
 		},
 		Response: &types.ChannelResponseData{
 			StatusCode: respCode,
