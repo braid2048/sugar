@@ -32,7 +32,7 @@ func New() *Handler {
  * 4. 构造响应
  */
 
-func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes, error) {
+func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes, error) {
 	// step1. 检验参数
 	if err := h.Validate(req); err != nil {
 		return nil, fmt.Errorf("ocan-conv -- Validate err: %w", err)
@@ -62,7 +62,7 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 }
 
 // Validate 检验参数
-func (h Handler) Validate(req *types.ConvReq) error {
+func (h *Handler) Validate(req *types.ConvReq) error {
 	if err := req.Validate(); err != nil {
 		return err
 	}
@@ -83,7 +83,7 @@ func (h Handler) Validate(req *types.ConvReq) error {
 }
 
 // MakeReq 构造请求参数
-func (h Handler) MakeReq(req *types.ConvReq) *HandlerReq {
+func (h *Handler) MakeReq(req *types.ConvReq) *HandlerReq {
 	// step1. 构造SDK请求参数
 	conversionReq := &oceanreq.Request{
 		EventType: req.OcanParams.ConvEvent,
