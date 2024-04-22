@@ -6,6 +6,7 @@ type ConvReq struct {
 	OcanParams     *OcanConv     `json:"ocan_params" structs:"ocan_params"`
 	KuaishouParams *KuaiShouConv `json:"kuaishou_params" structs:"kuaishou_params"`
 	HuaweiParams   *HuaWeiConv   `json:"huawei_params" structs:"huawei_params"`
+	OppoParams     *OppoConv     `json:"oppo_params" structs:"oppo_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -35,6 +36,7 @@ type BaseConv struct {
 	Brand   string `structs:"brand" json:"brand"`     // 厂商
 	Channel string `structs:"channel" json:"channel"` // 渠道
 	AdID    string `structs:"adid" json:"adid"`       // adid
+	Ip      string `structs:"ip" json:"ip"`           // ip
 }
 
 // OcanConv 巨量
@@ -50,12 +52,23 @@ type KuaiShouConv struct {
 
 // HuaWeiConv 华为
 type HuaWeiConv struct {
-	OAID                string `json:"oaid"`            // 设备标识符，明文，没有传空字符
-	ConversionType      string `json:"conversion_type"` // 转化事件的类型，详细枚举值见附录3
-	ContentID           string `json:"content_id"`      // 素材id，与该条转化行为匹配的、广告主接收到素材id
-	Callback            string `json:"callback"`        // 与该条转化行为数据的、广告主接收到的事件中的callback参数，该参数是经过URL编码的
-	CampaignID          string `json:"campaign_id"`     // 与该条转化行为匹配的、广告主接收到的事件中的计划id
-	Timestamp           string `json:"timestamp"`       // 本请求发起的时间戳，Unix时间戳，单位毫秒
-	ConversionTime      string `json:"conversion_time"`
-	ConversionSecretKey string `json:"conversion_secret_key"` // 秘钥
+	OAID                string `json:"oaid" structs:"oaid" `                        // 设备标识符，明文，没有传空字符
+	ConversionType      string `json:"conversion_type"  structs:"conversion_type" ` // 转化事件的类型，详细枚举值见附录3
+	ContentID           string `json:"content_id"  structs:"content_id" `           // 素材id，与该条转化行为匹配的、广告主接收到素材id
+	Callback            string `json:"callback"  structs:"callback" `               // 与该条转化行为数据的、广告主接收到的事件中的callback参数，该参数是经过URL编码的
+	CampaignID          string `json:"campaign_id"  structs:"campaign_id" `         // 与该条转化行为匹配的、广告主接收到的事件中的计划id
+	Timestamp           string `json:"timestamp"  structs:"timestamp" `             // 本请求发起的时间戳，Unix时间戳，单位毫秒
+	ConversionTime      string `json:"conversion_time"  structs:"conversion_time" `
+	ConversionSecretKey string `json:"conversion_secret_key"  structs:"conversion_secret_key" ` // 秘钥
+}
+
+// OppoConv oppo
+type OppoConv struct {
+	OwnerID       uint64 `json:"ownerId" structs:"ownerId"`             // 广告主 ID
+	AppID         string `json:"appId" structs:"appId"`                 // APP ID
+	AppKey        string `json:"appKey" structs:"appKey"`               // APP Key
+	PageID        uint64 `json:"pageId" structs:"pageId"`               // 落地页id
+	TID           string `json:"tid" structs:"tid"`                     // traceId
+	LbID          string `json:"lbid" structs:"lbid"`                   // 流量号
+	TransformType int    `json:"transformType" structs:"transformType"` // 转化类型
 }

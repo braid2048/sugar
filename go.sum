@@ -1,4 +1,6 @@
 github.com/bububa/oceanengine v1.24.8 h1:V9EIttF9hwBzZ32nW3BNS1INpVDDtPujDbulZn1SqtI=
 github.com/bububa/oceanengine v1.24.8/go.mod h1:mh85xjSL+UPvpIYiRDTHhehhoDENHomK4yTBaNSleDc=
+github.com/bububa/oppo-omni v1.0.1 h1:1u9B+zeBswCFG+kdQz8+d8YCz+gi1Lfq6ruOUNBJ2DA=
+github.com/bububa/oppo-omni v1.0.1/go.mod h1:FP2dFq9ZMRbBEKuQ9u6asDy4uYNepMzN3ZVw6xIO6EY=
 github.com/fatih/structs v1.1.0 h1:Q7juDM0QtcnhCpeyLGQKyg4TOIghuNXrkL32pHAUMxo=
 github.com/fatih/structs v1.1.0/go.mod h1:9NiDSp5zOcgEDl+j00MP/WkGVPOlPRLejGD8Ga6PJ7M=

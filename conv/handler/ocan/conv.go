@@ -49,7 +49,7 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 		Channel:   req.BaseParams.Channel,
 		Request: &types.ChannelRequestData{
 			ReqType: types.RequestTypeSDK,
-			ReqData: structs.Map(convReq.Req),
+			ReqData: structs.Map(convReq),
 		},
 		Response: &types.ChannelResponseData{
 			StatusCode: respCode,

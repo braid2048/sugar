@@ -30,6 +30,10 @@ func (s *BaseConv) Validate() error {
 	if s.Brand == "" {
 		return errors.New("brand is empty")
 	}
+	// ip
+	if s.Ip == "" {
+		return errors.New("ip is empty")
+	}
 
 	return nil
 }
