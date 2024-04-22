@@ -1,6 +1,6 @@
 module github.com/halo2024/sugar
 
-go 1.19
+go 1.21
 
 require (
 	github.com/bububa/oceanengine v1.24.8

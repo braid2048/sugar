@@ -47,7 +47,7 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 	// step4. 整理
 	res := &types.ConvRes{
 		IsSuccess: respCode < http.StatusBadRequest,
-		Channel:   req.Channel,
+		Channel:   req.BaseParams.Channel,
 		Request: &types.ChannelRequestData{
 			ReqType: types.RequestTypeHttp,
 			ReqData: convReq.Req,
@@ -64,9 +64,16 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 
 // Validate 检验参数
 func (h Handler) Validate(req *types.ConvReq) error {
+	if err := req.Validate(); err != nil {
+		return err
+	}
+	// NOTE: 必填字段
+	if req.KuaishouParams == nil {
+		return fmt.Errorf("conv params is nil")
+	}
 	// NOTE: clickID
-	if req.ClickID == "" {
-		return fmt.Errorf("clickid is nil")
+	if req.KuaishouParams.CallBack == "" {
+		return fmt.Errorf("callback is nil")
 	}
 
 	return nil
@@ -75,7 +82,7 @@ func (h Handler) Validate(req *types.ConvReq) error {
 // MakeReq 构造请求参数
 func (h Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 	// step1. 加工click_id
-	activateURL := strings.Replace(req.ClickID, "http=//", "http://", 1)
+	activateURL := strings.Replace(req.KuaishouParams.CallBack, "http=//", "http://", 1)
 
 	now := time.Now()
 	// NOTE: 少数情况快手宏会像巨量的 CALLBACK_PARAM 一样，没有拼接在 URL 后面

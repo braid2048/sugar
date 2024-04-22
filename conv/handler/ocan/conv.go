@@ -46,7 +46,7 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 	// step4. 整理
 	res := &types.ConvRes{
 		IsSuccess: convErr == nil,
-		Channel:   req.Channel,
+		Channel:   req.BaseParams.Channel,
 		Request: &types.ChannelRequestData{
 			ReqType: types.RequestTypeSDK,
 			ReqData: structs.Map(convReq.Req),
@@ -63,12 +63,19 @@ func (h Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes
 
 // Validate 检验参数
 func (h Handler) Validate(req *types.ConvReq) error {
+	if err := req.Validate(); err != nil {
+		return err
+	}
+	// NOTE: 必填字段
+	if req.OcanParams == nil {
+		return fmt.Errorf("conv params is nil")
+	}
 	// NOTE: clickID
-	if req.ClickID == "" {
-		return fmt.Errorf("clickid is nil")
+	if req.OcanParams.CallBack == "" {
+		return fmt.Errorf("callback is nil")
 	}
 	// NOTE: event
-	if req.ConvEvent == "" {
+	if req.OcanParams.ConvEvent == "" {
 		return fmt.Errorf("conv_event is nil")
 	}
 
@@ -79,8 +86,8 @@ func (h Handler) Validate(req *types.ConvReq) error {
 func (h Handler) MakeReq(req *types.ConvReq) *HandlerReq {
 	// step1. 构造SDK请求参数
 	conversionReq := &oceanreq.Request{
-		EventType: req.ConvEvent,
-		Context:   &oceanreq.Context{Ad: &oceanreq.ContextAd{Callback: req.ClickID}},
+		EventType: req.OcanParams.ConvEvent,
+		Context:   &oceanreq.Context{Ad: &oceanreq.ContextAd{Callback: req.OcanParams.CallBack}},
 		Timestamp: time.Now().UnixMilli(),
 	}
 
