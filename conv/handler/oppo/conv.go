@@ -35,7 +35,7 @@ func New() *Handler {
 func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRes, error) {
 	// step1. 检验参数
 	if err := h.Validate(req); err != nil {
-		return nil, fmt.Errorf("ocan-conv -- Validate err: %w", err)
+		return nil, fmt.Errorf("oppoH5-conv -- Validate err: %w", err)
 	}
 	// step2. 构造参数
 	convReq := h.MakeReq(req)
