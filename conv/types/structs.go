@@ -7,6 +7,7 @@ type ConvReq struct {
 	KuaishouParams *KuaiShouConv `json:"kuaishou_params" structs:"kuaishou_params"`
 	HuaweiParams   *HuaWeiConv   `json:"huawei_params" structs:"huawei_params"`
 	OppoParams     *OppoConv     `json:"oppo_params" structs:"oppo_params"`
+	OppoHapParams  *OppoHapConv  `json:"oppo_hap_params" structs:"oppo_hap_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -71,4 +72,22 @@ type OppoConv struct {
 	TID           string `json:"tid" structs:"tid"`                     // traceId
 	LbID          string `json:"lbid" structs:"lbid"`                   // 流量号
 	TransformType int    `json:"transformType" structs:"transformType"` // 转化类型
+}
+
+// OppoHapConv oppoHap
+type OppoHapConv struct {
+	Imei        string `json:"imei" structs:"imei"`               // imei原值，与oaid二选1
+	OUID        string `json:"ouId" structs:"ouId"`               // oaid原值，与imei二选1
+	RequestID   string `json:"requestId" structs:"requestId"`     // 非必传--请求id
+	ClientIp    string `json:"clientIp" structs:"clientIp"`       // 非必传--ip
+	Pkg         string `json:"pkg" structs:"pkg"`                 // 必传--快应用id
+	DataType    int    `json:"dataType" structs:"dataType"`       // 必传--转化事件枚举
+	Channel     int    `json:"channel" structs:"channel"`         // 必传--渠道枚举，0：其他 1：oppo 2:一加
+	Type        int    `json:"type" structs:"type"`               // 必传--加密类型，0：无加密，1:imeiMD5 2:oaidMD5
+	AppType     int    `json:"appType" structs:"appType"`         // 必传--应用类别，0：其他，1：应用，2：游戏，3：快应用
+	AscribeType int    `json:"ascribeType" structs:"ascribeType"` // 必传--归因类型，0：oppo归因，1：广告主归因，2：助攻归因
+	AdID        int64  `json:"adId" structs:"adId"`               // 必传--adid
+	PayID       string `json:"payId" structs:"payId"`             // 非必传--付费交易id
+	CustomType  int    `json:"customType" structs:"customType"`   // 非必传--自定义目标类型
+	PayAmount   int64  `json:"payAmount" structs:"payAmount"`     // 非必传--付费金额,单位分
 }

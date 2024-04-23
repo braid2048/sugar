@@ -44,7 +44,7 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 	// step2. 构造参数
 	convReq := h.MakeReq(req)
 	// step3. 解析body
-	body, err := json.Marshal(req)
+	body, err := json.Marshal(convReq.Req)
 	if err != nil {
 		return nil, fmt.Errorf("huawei-conv -- body json err: %w", err)
 	}
