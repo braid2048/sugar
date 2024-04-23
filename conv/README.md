@@ -35,7 +35,7 @@
   			ConvEvent: "active",					// -------- 回传的事件，对应巨量提供的文档key
   		},
   	}
-  // step2. 获取巨量回传工厂的实例
+  // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("ocan")
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
@@ -59,7 +59,7 @@
   			CallBack:  "test_clickid",    				// -------- 回传的callback ,对应clickid 
   		},
   	}
-  // step2. 获取巨量回传工厂的实例
+  // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("kuaishou")
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
@@ -88,7 +88,7 @@
   			ConversionSecretKey: "xxxxx",  // -------- 转化秘钥
   		},
   	}
-  // step2. 获取巨量回传工厂的实例
+  // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("huawei")
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
@@ -118,7 +118,7 @@
   			TID:           "xxxx", // -------- traceId
   		},
   	}
-  // step2. 获取巨量回传工厂的实例
+  // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("oppo")
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
