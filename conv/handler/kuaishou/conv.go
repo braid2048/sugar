@@ -20,7 +20,7 @@ type HandlerReq struct {
 
 const (
 	kWaiActivate    = 1
-	kWaiActivateURL = "http://ad.partner.gifshow.com/track/activate?event_type=%d&event_time=%d&callback=%s"
+	kWaiActivateURL = "http://ad.partner.gifshow.com/track/activate?event_type=%v&event_time=%v&callback=%s"
 )
 
 func New() *Handler {
@@ -75,6 +75,10 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 	if req.KuaishouParams.CallBack == "" {
 		return fmt.Errorf("callback is nil")
 	}
+	// NOTE: event_type
+	if req.KuaishouParams.EventType == "" {
+		return fmt.Errorf("eventType is nil")
+	}
 
 	return nil
 }
@@ -87,7 +91,7 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 	now := time.Now()
 	// NOTE: 少数情况快手宏会像巨量的 CALLBACK_PARAM 一样，没有拼接在 URL 后面
 	if !strings.Contains(activateURL, "http://") {
-		activateURL = fmt.Sprintf(kWaiActivateURL, kWaiActivate, now.UnixMilli(), activateURL)
+		activateURL = fmt.Sprintf(kWaiActivateURL, req.KuaishouParams.EventType, now.UnixMilli(), activateURL)
 
 		return &HandlerReq{Req: activateURL}, nil
 	}
@@ -107,7 +111,7 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 		return nil, fmt.Errorf("callback value not found in URL")
 	}
 
-	activateURL = fmt.Sprintf(kWaiActivateURL, kWaiActivate, now.UnixMilli(), callback)
+	activateURL = fmt.Sprintf(kWaiActivateURL, req.KuaishouParams.EventType, now.UnixMilli(), callback)
 
 	return &HandlerReq{Req: activateURL}, nil
 }

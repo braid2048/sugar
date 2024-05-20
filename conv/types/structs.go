@@ -8,6 +8,10 @@ type ConvReq struct {
 	HuaweiParams   *HuaWeiConv   `json:"huawei_params" structs:"huawei_params"`
 	OppoParams     *OppoConv     `json:"oppo_params" structs:"oppo_params"`
 	OppoHapParams  *OppoHapConv  `json:"oppo_hap_params" structs:"oppo_hap_params"`
+	VivoParams     *VivoConv     `json:"vivo_params" structs:"vivo_params"`
+	QTTParams      *QTTConv      `json:"qtt_params" structs:"qtt_params"`
+	TencentParams  *TencentConv  `json:"tencent_params" structs:"tencent_params"`
+	//BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"` todo
 }
 
 // ChannelRequestData 渠道请求数据
@@ -42,13 +46,14 @@ type BaseConv struct {
 
 // OcanConv 巨量
 type OcanConv struct {
-	CallBack  string `structs:"call_back" json:"call_back"`   // 回传地址--clickid
+	CallBack  string `structs:"callback" json:"callback"`     // 回传地址--clickid
 	ConvEvent string `structs:"conv_event" json:"conv_event"` // 回传事件
 }
 
 // KuaiShouConv 快手
 type KuaiShouConv struct {
-	CallBack string `structs:"call_back" json:"call_back"` // 回传地址--clickid
+	CallBack  string `structs:"call_back" json:"call_back"`   // 回传地址--clickid
+	EventType string `structs:"event_type" json:"event_type"` // 回传事件
 }
 
 // HuaWeiConv 华为
@@ -90,4 +95,44 @@ type OppoHapConv struct {
 	PayID       string `json:"payId" structs:"payId"`             // 非必传--付费交易id
 	CustomType  int    `json:"customType" structs:"customType"`   // 非必传--自定义目标类型
 	PayAmount   int64  `json:"payAmount" structs:"payAmount"`     // 非必传--付费金额,单位分
+}
+
+// VivoConv vivo
+type VivoConv struct {
+	PageURL      string `json:"pageUrl"  structs:"pageUrl"`           // 落地页 URL | 当事件源类型为Web时,该字段必传
+	SrcID        string `json:"srcId"  structs:"srcId"`               // 数据源id，营销平台转化管理工具中新建，每个产品在每个账号下仅可新建一个
+	SrcType      string `json:"srcType"  structs:"srcType"`           // 事件源类型，枚举值：APP/Web/Quickapp/offline(不区分大小写)
+	PackageName  string `json:"pkgName"  structs:"pkgName"`           // 应用包名, 当事件源类型为 APP/Quickapp 时,该字段必传
+	UserIDType   string `json:"userIdType"  structs:"userIdType"`     // 用户标识类型, 枚举值IMEI/IMEI_MD5/OAID/OAID_MD5/OTHER/OPENID, 当事件源类型为APP时,该字段必传。
+	UserID       string `json:"userId"  structs:"userId"`             // 标识的值，如IMEI号等,当事件源类型为APP时,该字段必传。IMEI：15-17位，明文 IMEI_MD5 ：32位，加密 OAID：64位，明文OAID_MD5：32位   加密OTHER：不限OPENID：不限
+	CreativeID   string `json:"creativeId"  structs:"creativeId"`     // vivo回传点击数据时,透传给广告主的creativeId,使用点击归因的广告主需要回传
+	RequestID    string `json:"requestId"  structs:"requestId"`       // vivo回传点击数据时,透传给广告主的RequestID,使用点击归因的广告主需要回传。
+	CvType       string `json:"cvType"  structs:"cvType"`             // 事件类型
+	AccessToken  string `json:"accessToken"  structs:"accessToken"`   // token
+	AdvertiserID string `json:"advertiserId"  structs:"advertiserId"` // 投放账户id
+}
+
+// QTTConv 趣头条
+type QTTConv struct {
+	CallBack string `structs:"callback" json:"callback"` // 回传地址--clickid
+	OP2      string `structs:"op2" json:"op2"`           // 回传事件
+	Arpu     int64  `structs:"arpu" json:"arpu"`         // arpu值，单位是厘
+}
+
+// TencentConv 腾讯
+type TencentConv struct {
+	OuterActionID string `json:"outer_action_id" structs:"outer_action_id"` //选填，若上报可能有重复请填写该id，系统会根据该ID进行去重
+	ActionType    string `json:"action_type" structs:"action_type"`         // 行为类型
+	CallBack      string `structs:"callback" json:"callback"`               // 回传地址
+	HashIMEI      string `json:"hash_imei"  structs:"hash_imei"`
+	HashOAID      string `json:"hash_oaid"  structs:"hash_oaid"`
+	HashAndroidID string `json:"hash_android_id"  structs:"hash_android_id"`
+}
+
+// BaiduConv 百度
+type BaiduConv struct {
+	CallBack      string `structs:"callback" json:"callback"` // 回传地址
+	HashIMEI      string `json:"hash_imei"  structs:"hash_imei"`
+	HashOAID      string `json:"hash_oaid"  structs:"hash_oaid"`
+	HashAndroidID string `json:"hash_android_id"  structs:"hash_android_id"`
 }

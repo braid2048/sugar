@@ -8,15 +8,22 @@ import (
 	"github.com/halo2024/sugar/conv/handler/ocan"
 	"github.com/halo2024/sugar/conv/handler/oppo"
 	"github.com/halo2024/sugar/conv/handler/oppoHap"
+	"github.com/halo2024/sugar/conv/handler/qutoutiao"
+	"github.com/halo2024/sugar/conv/handler/tencent"
+	"github.com/halo2024/sugar/conv/handler/vivo"
 	"github.com/halo2024/sugar/conv/types"
 )
 
 var ChannelHandlers = map[string]handler.IChannelHandler{
-	types.ChannelOceanH5: ocan.New(),
-	types.ChannelKWaiH5:  kuaishou.New(),
-	types.ChannelHuawei:  huawei.New(),
-	types.ChannelOppoH5:  oppo.New(),
-	types.ChannelOppoHap: oppoHap.New(),
+	types.ChannelOceanH5:      ocan.New(),
+	types.ChannelKWaiH5:       kuaishou.New(),
+	types.ChannelHuawei:       huawei.New(),
+	types.ChannelOppoH5:       oppo.New(),
+	types.ChannelOppoH5InSite: oppo.New(),
+	types.ChannelOppoHap:      oppoHap.New(),
+	types.ChannelVivoH5:       vivo.New(),
+	types.ChannelQTT:          qutoutiao.New(),
+	types.ChannelTencent:      tencent.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

@@ -53,7 +53,7 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 	// step3. 回传
 	respCode, respBody, err := utils.SendPostRequest(ctx, convURL, map[string]string{"Content-Type": "application/json", "signature": convReq.Sign, "timestamp": strconv.FormatInt(convReq.Req.Timestamp, 10)}, body)
 	if err != nil {
-		return nil, fmt.Errorf("huawei-conv -- send request err: %w", err)
+		return nil, fmt.Errorf("oppoH5-conv -- send request err: %w", err)
 	}
 
 	return h.MakeRes(respCode, respBody, req, convReq)
