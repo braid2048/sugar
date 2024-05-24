@@ -3,6 +3,7 @@ package conv
 import (
 	"fmt"
 	"github.com/halo2024/sugar/conv/handler"
+	"github.com/halo2024/sugar/conv/handler/baidu"
 	"github.com/halo2024/sugar/conv/handler/huawei"
 	"github.com/halo2024/sugar/conv/handler/kuaishou"
 	"github.com/halo2024/sugar/conv/handler/ocan"
@@ -24,6 +25,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelVivoH5:       vivo.New(),
 	types.ChannelQTT:          qutoutiao.New(),
 	types.ChannelTencent:      tencent.New(),
+	types.ChannelBaidu:        baidu.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

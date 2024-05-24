@@ -11,7 +11,7 @@ type ConvReq struct {
 	VivoParams     *VivoConv     `json:"vivo_params" structs:"vivo_params"`
 	QTTParams      *QTTConv      `json:"qtt_params" structs:"qtt_params"`
 	TencentParams  *TencentConv  `json:"tencent_params" structs:"tencent_params"`
-	//BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"` todo
+	BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -131,8 +131,8 @@ type TencentConv struct {
 
 // BaiduConv 百度
 type BaiduConv struct {
-	CallBack      string `structs:"callback" json:"callback"` // 回传地址
-	HashIMEI      string `json:"hash_imei"  structs:"hash_imei"`
-	HashOAID      string `json:"hash_oaid"  structs:"hash_oaid"`
-	HashAndroidID string `json:"hash_android_id"  structs:"hash_android_id"`
+	CallBack string `structs:"callback" json:"callback"` // 回传地址
+	AType    string `json:"a_type"  structs:"a_type"`    // 转化类型
+	AValue   string `json:"a_value"  structs:"a_value"`  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
+	Akey     string `json:"akey"  structs:"akey"`        // 签名
 }

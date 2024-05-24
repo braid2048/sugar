@@ -10,7 +10,7 @@ import (
 
 // SendGetRequest 发送GET请求
 func SendGetRequest(ctx context.Context, url string, headers map[string]string) (int, []byte, error) {
-	client := &http.Client{}
+	client := http.DefaultClient
 
 	// 创建一个GET请求
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
@@ -41,7 +41,7 @@ func SendGetRequest(ctx context.Context, url string, headers map[string]string) 
 
 // SendPostRequest 发送POST请求
 func SendPostRequest(ctx context.Context, url string, headers map[string]string, body []byte) (int, []byte, error) {
-	client := &http.Client{}
+	client := http.DefaultClient
 
 	// 创建一个POST请求
 	req, err := http.NewRequestWithContext(ctx, "POST", url, bytes.NewBuffer(body))
