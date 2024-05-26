@@ -12,6 +12,7 @@ type ConvReq struct {
 	QTTParams      *QTTConv      `json:"qtt_params" structs:"qtt_params"`
 	TencentParams  *TencentConv  `json:"tencent_params" structs:"tencent_params"`
 	BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"`
+	UCParams       *UcConv       `json:"uc_params" structs:"uc_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -135,4 +136,12 @@ type BaiduConv struct {
 	AType    string `json:"a_type"  structs:"a_type"`    // 转化类型
 	AValue   string `json:"a_value"  structs:"a_value"`  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
 	Akey     string `json:"akey"  structs:"akey"`        // 签名
+}
+
+// UcConv uc阿里汇川
+type UcConv struct {
+	ConvURL string `json:"conv_url" structs:"conv_url"` // 回传链接
+	ImeiSum string `json:"imei_md5" structs:"imei_md5"` // imei的md5
+	OAID    string `json:"oaid" structs:"oaid"`         // oaid原值
+	Event   string `json:"event" structs:"event"`       // 回传事件
 }

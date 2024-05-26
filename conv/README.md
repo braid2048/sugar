@@ -137,7 +137,7 @@
               Brand:   "huawei",
               Ip:      "127.0.0.1",
           },
-          OppoHapParams: &types.OppoHapConv{		// ---- oppoH5回传参数，必传
+          OppoHapParams: &types.OppoHapConv{
               Imei: "" ,                     // imei原值，与oaid二选1
               OUID: "xxxxx"  ,             // oaid原值，与imei二选1
               RequestID:"click_id",     // 非必传--请求id,这里可填写click_id
@@ -172,7 +172,7 @@
               Brand:   "huawei",
               Ip:      "127.0.0.1",
           },
-          QTTParams: &types.QTTConv{		// ---- oppoH5回传参数，必传
+          QTTParams: &types.QTTConv{	
               CallBack :"xxx", // 回传地址--clickid
               OP2:"xxx",     // 回传事件
               Arpu: 1000  // arpu值，单位是厘
@@ -196,7 +196,7 @@
               Brand:   "huawei",
               Ip:      "127.0.0.1",
           },
-          VivoParams: &types.VivoConv{		// ---- oppoH5回传参数，必传
+          VivoParams: &types.VivoConv{	
               PageURL:"xxx",       // 落地页 URL | 当事件源类型为Web时,该字段必传
               SrcID:"xxx",       // 数据源id，营销平台转化管理工具中新建，每个产品在每个账号下仅可新建一个
               SrcType:"Quickapp",  // 事件源类型，枚举值：APP/Web/Quickapp/offline(不区分大小写)
@@ -228,7 +228,7 @@
               Brand:   "huawei",
               Ip:      "127.0.0.1",
           },
-          TencentParams: &types.TencentConv{		// ---- oppoH5回传参数，必传
+          TencentParams: &types.TencentConv{	
               OuterActionID:"xxx", //选填，若上报可能有重复请填写该id，系统会根据该ID进行去重
               ActionType:"xxx",  // 行为类型
               CallBack:"xxx",    // 回传地址
@@ -239,6 +239,56 @@
       }
   // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("tencent")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
+- ###### 百度
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "oppo",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          BaiDuParams: &types.BaiduConv{	
+             CallBack:"xxx", // 回传地址
+             AType:"xx",    // 转化类型
+             AValue:"0",  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
+             Akey:"xx",        // 签名
+          },
+      }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("baidu")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
+- ###### uc
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "oppo",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          UCParams: &types.UcConv{	
+             ConvURL:"xxx", // 回传链接
+             ImeiSum:"xxx", // imei的md5
+             OAID:"xxx",     // oaid原值
+             Event:"xxx",    // 回传事件
+          },
+      }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("uc")
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
   ```
