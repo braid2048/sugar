@@ -13,6 +13,7 @@ type ConvReq struct {
 	TencentParams  *TencentConv  `json:"tencent_params" structs:"tencent_params"`
 	BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"`
 	UCParams       *UcConv       `json:"uc_params" structs:"uc_params"`
+	WeiBoParams    *WeiBoConv    `json:"weibo_params" structs:"weibo_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -144,4 +145,12 @@ type UcConv struct {
 	ImeiSum string `json:"imei_md5" structs:"imei_md5"` // imei的md5
 	OAID    string `json:"oaid" structs:"oaid"`         // oaid原值
 	Event   string `json:"event" structs:"event"`       // 回传事件
+}
+
+// WeiBoConv 微博
+type WeiBoConv struct {
+	IMP        string `json:"imp" structs:"imp"`                 // 监测callback;必传
+	ActionType string `json:"action_type" structs:"action_type"` // 激活后的行为数据，3注册4付费;选填
+	Price      int64  `json:"price" structs:"price"`             // 单位元，源文档是int型，貌似没有角分，付费事件的金额;选填
+	ActiveTime int64  `json:"active_time" structs:"active_time"` // 行为时间，秒级时间戳，需要特别注意：有重传机制的广告主在重新回传需要保证active_time 完全一致，否则会被处理成多次激活;选填
 }

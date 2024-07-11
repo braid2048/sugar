@@ -13,6 +13,7 @@ import (
 	"github.com/halo2024/sugar/conv/handler/tencent"
 	"github.com/halo2024/sugar/conv/handler/uc"
 	"github.com/halo2024/sugar/conv/handler/vivo"
+	"github.com/halo2024/sugar/conv/handler/weibo"
 	"github.com/halo2024/sugar/conv/types"
 )
 
@@ -28,6 +29,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelTencent:      tencent.New(),
 	types.ChannelBaidu:        baidu.New(),
 	types.ChannelUc:           uc.New(),
+	types.ChannelWeiBo:        weibo.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

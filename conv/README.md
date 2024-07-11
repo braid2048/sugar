@@ -293,6 +293,31 @@
   convRes, err := convH.DoConv(ctx, convReq)
   ```
 
+- ###### 微博
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "oppo",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          WeiBoParams: &types.WeiBoConv{	
+             IMP:"xxx", // 监测的callback,必填
+             ActionType:"3", // 激活后续事件，选填
+             Price:20,     // 付费金额，单位元，选填
+             ActiveTime:1720689622,    // 行为时间，秒级时间戳,选填；需要特别注意：有重传机制的广告主在重新回传需要保证active_time 完全一致，否则会被处理成多次激活
+          },
+      }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("weibo")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
 
 
 ##### 依赖包：
