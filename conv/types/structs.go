@@ -149,8 +149,22 @@ type UcConv struct {
 
 // WeiBoConv 微博
 type WeiBoConv struct {
+	ConvType    int               `json:"conv_type" structs:"conv_type"`       // 回传方式，必传：1.快应用回传；2.落地页回传
+	QuickParams *WeiBoQuickParams `json:"quick_params" structs:"quick_params"` // 快应用回传参数
+	LandParams  *WeiBoLandParams  `json:"land_params" structs:"land_params"`   // 落地页回传参数
+}
+
+// WeiBoQuickParams 微博快应用回传参数
+type WeiBoQuickParams struct {
 	IMP        string `json:"imp" structs:"imp"`                 // 监测callback;必传
 	ActionType string `json:"action_type" structs:"action_type"` // 激活后的行为数据，3注册4付费;选填
 	Price      int64  `json:"price" structs:"price"`             // 单位元，源文档是int型，貌似没有角分，付费事件的金额;选填
 	ActiveTime int64  `json:"active_time" structs:"active_time"` // 行为时间，秒级时间戳，需要特别注意：有重传机制的广告主在重新回传需要保证active_time 完全一致，否则会被处理成多次激活;选填
+}
+
+// WeiBoLandParams 微博落地页回传参数
+type WeiBoLandParams struct {
+	Time     int64  `json:"time" structs:"time"`         // 转化时间,毫秒时间戳;必传
+	MarkID   string `json:"mark_id" structs:"mark_id"`   // mark_id允许为空，此时为自然量 需要urlencode一次，请不要多次urlencode
+	Behavior string `json:"behavior" structs:"behavior"` // 行为码;必传
 }

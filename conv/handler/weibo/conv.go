@@ -15,7 +15,8 @@ type HandlerReq struct {
 }
 
 const (
-	weiBoURL = "https://appmonitor.biz.weibo.com/sdkserver/active?IMP=%v"
+	weiBoQuickURL = "https://appmonitor.biz.weibo.com/sdkserver/active?IMP=%v"        // 快应用回传
+	weiBoLandURL  = "https://api.biz.weibo.com/v4/track/activate?time=%v&behavior=%v" // 落地页回传
 )
 
 func New() *Handler {
@@ -66,9 +67,32 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 	if req.WeiBoParams == nil {
 		return fmt.Errorf("conv params is nil")
 	}
-	// NOTE: imp
-	if req.WeiBoParams.IMP == "" {
-		return fmt.Errorf("callback is nil")
+	// NOTE: 回传方式
+	switch req.WeiBoParams.ConvType {
+	case 1:
+		// 快应用回传
+		if req.WeiBoParams.QuickParams == nil {
+			return fmt.Errorf("quick_params is nil")
+		}
+		// imp
+		if req.WeiBoParams.QuickParams.IMP == "" {
+			return fmt.Errorf("imp is nil")
+		}
+	case 2:
+		// 落地页回传
+		if req.WeiBoParams.LandParams == nil {
+			return fmt.Errorf("land params is nil")
+		}
+		// time
+		if req.WeiBoParams.LandParams.Time <= 0 {
+			return fmt.Errorf("time is nil")
+		}
+		// behavior
+		if req.WeiBoParams.LandParams.Behavior == "" {
+			return fmt.Errorf("behavior is nil")
+		}
+	default:
+		return fmt.Errorf("conv_type is invalid")
 	}
 
 	return nil
@@ -76,18 +100,31 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 
 // MakeReq 构造请求参数
 func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
-	convURL := fmt.Sprintf(weiBoURL, req.WeiBoParams.IMP)
-	// 转化事件类型
-	if req.WeiBoParams.ActionType != "" {
-		convURL = fmt.Sprintf(convURL+"&action_type=%v", req.WeiBoParams.ActionType)
-	}
-	// 付费金额
-	if req.WeiBoParams.Price > 0 {
-		convURL = fmt.Sprintf(convURL+"&price=%v", req.WeiBoParams.Price)
-	}
-	// 行为时间
-	if req.WeiBoParams.ActiveTime > 0 {
-		convURL = fmt.Sprintf(convURL+"&active_time=%v", req.WeiBoParams.ActiveTime)
+	var convURL string
+	// 回传方式判断
+	switch req.WeiBoParams.ConvType {
+	case 1: // 快应用回传
+		convURL = fmt.Sprintf(weiBoQuickURL, req.WeiBoParams.QuickParams.IMP)
+		// 转化事件类型
+		if req.WeiBoParams.QuickParams.ActionType != "" {
+			convURL = fmt.Sprintf(convURL+"&action_type=%v", req.WeiBoParams.QuickParams.ActionType)
+		}
+		// 付费金额
+		if req.WeiBoParams.QuickParams.Price > 0 {
+			convURL = fmt.Sprintf(convURL+"&price=%v", req.WeiBoParams.QuickParams.Price)
+		}
+		// 行为时间
+		if req.WeiBoParams.QuickParams.ActiveTime > 0 {
+			convURL = fmt.Sprintf(convURL+"&active_time=%v", req.WeiBoParams.QuickParams.ActiveTime)
+		}
+	case 2: // 落地页回传
+		convURL = fmt.Sprintf(weiBoLandURL, req.WeiBoParams.LandParams.Time, req.WeiBoParams.LandParams.Behavior)
+		// mark_id
+		if req.WeiBoParams.LandParams.MarkID != "" {
+			convURL = fmt.Sprintf(convURL+"&mark_id=%v", req.WeiBoParams.LandParams.MarkID)
+		}
+	default:
+		return nil, fmt.Errorf("conv_type is invalid")
 	}
 
 	return &HandlerReq{Req: convURL}, nil

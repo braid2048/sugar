@@ -305,13 +305,21 @@
               Brand:   "huawei",
               Ip:      "127.0.0.1",
           },
-          WeiBoParams: &types.WeiBoConv{	
-             IMP:"xxx", // 监测的callback,必填
-             ActionType:"3", // 激活后续事件，选填
-             Price:20,     // 付费金额，单位元，选填
-             ActiveTime:1720689622,    // 行为时间，秒级时间戳,选填；需要特别注意：有重传机制的广告主在重新回传需要保证active_time 完全一致，否则会被处理成多次激活
+          WeiBoParams: &types.WeiBoConv{
+		            ConvType: 1, // 回传方式：1 快应用，2 落地页 必传;
+		            QuickParams: &types.WeiBoQuickParams{ // 快应用回传时该参数必填
+			            IMP:        "", // 监测callback;必传
+			            ActionType: "", // 激活后的行为数据，3注册4付费;选填
+			            Price:      0,  // 单位元，源文档是int型，貌似没有角分，付费事件的金额;选填
+			            ActiveTime: 0,  // 行为时间，秒级时间戳，需要特别注意：有重传机制的广告主在重新回传需要保证active_time 完全一致，否则会被处理成多次激活;选填
+		            },
+		            LandParams: &types.WeiBoLandParams{ // 落地页回传时该参数必填
+                      MarkID:   "", // mark_id允许为空，此时为自然量 需要urlencode一次，请不要多次urlencode
+			            Behavior: "", // 行为码;必传
+			            Time:     0,  // 转化时间,毫秒时间戳;必传
+		            },
           },
-      }
+  }
   // step2. 获取回传工厂的实例
   convH, err := conv.NewChannelHandler("weibo")
   // step3. 调用回传
