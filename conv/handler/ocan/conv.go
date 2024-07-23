@@ -90,6 +90,10 @@ func (h *Handler) MakeReq(req *types.ConvReq) *HandlerReq {
 		Context:   &oceanreq.Context{Ad: &oceanreq.ContextAd{Callback: req.OcanParams.CallBack}},
 		Timestamp: time.Now().UnixMilli(),
 	}
+	// 增加额外参数
+	if req.OcanParams.Properties != nil {
+		conversionReq.Properties = req.OcanParams.Properties
+	}
 
 	conversionClt := oceancore.NewSDKClient(0, "")
 

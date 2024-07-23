@@ -1,5 +1,7 @@
 package types
 
+import oceanreq "github.com/bububa/oceanengine/marketing-api/model/conversion"
+
 // ConvReq 回传入参
 type ConvReq struct {
 	BaseParams     *BaseConv     `json:"base_params" structs:"base_params"`
@@ -48,8 +50,9 @@ type BaseConv struct {
 
 // OcanConv 巨量
 type OcanConv struct {
-	CallBack  string `structs:"callback" json:"callback"`     // 回传地址--clickid
-	ConvEvent string `structs:"conv_event" json:"conv_event"` // 回传事件
+	CallBack   string               `structs:"callback" json:"callback"`     // 回传地址--clickid
+	ConvEvent  string               `structs:"conv_event" json:"conv_event"` // 回传事件
+	Properties *oceanreq.Properties `structs:"properties" json:"properties"` // 额外参数，选传
 }
 
 // KuaiShouConv 快手
