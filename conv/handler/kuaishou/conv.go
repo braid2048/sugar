@@ -3,8 +3,8 @@ package kuaishou
 import (
 	"context"
 	"fmt"
-	"github.com/halo2024/sugar/conv/types"
-	"github.com/halo2024/sugar/conv/utils"
+	"github.com/braid2048/sugar/conv/types"
+	"github.com/braid2048/sugar/conv/utils"
 
 	"net/http"
 	"net/url"

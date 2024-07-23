@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-	"github.com/halo2024/sugar/conv/types"
+	"github.com/braid2048/sugar/conv/types"
 )
 
 type IChannelHandler interface {

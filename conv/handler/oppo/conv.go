@@ -3,13 +3,13 @@ package oppo
 import (
 	"context"
 	"fmt"
+	"github.com/braid2048/sugar/conv/types"
 	oppoconversion "github.com/bububa/oppo-omni/api/clue"
 	oppocore "github.com/bububa/oppo-omni/core"
 	oppoenum "github.com/bububa/oppo-omni/enum"
 	oppomodel "github.com/bububa/oppo-omni/model"
 	opporeq "github.com/bububa/oppo-omni/model/clue"
 	"github.com/fatih/structs"
-	"github.com/halo2024/sugar/conv/types"
 )
 
 type Handler struct{}

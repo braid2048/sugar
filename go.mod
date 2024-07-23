@@ -1,4 +1,4 @@
-module github.com/halo2024/sugar
+module github.com/braid2048/sugar
 
 go 1.21
 
