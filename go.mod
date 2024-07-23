@@ -3,7 +3,7 @@ module github.com/braid2048/sugar
 go 1.21
 
 require (
-	github.com/bububa/oceanengine v0.0.0-00010101000000-000000000000
+	github.com/bububa/oceanengine v1.25.8
 	github.com/bububa/oppo-omni v1.0.1
 	github.com/fatih/structs v1.1.0
 	github.com/jinzhu/copier v0.4.0
