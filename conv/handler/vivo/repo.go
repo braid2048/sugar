@@ -18,6 +18,8 @@ type DataItem struct {
 	RequestID  string `json:"requestId"`
 	CvTime     int64  `json:"cvTime"` // 事件发生的系统时间戳，精确到毫秒，13位
 	CvType     string `json:"cvType"` // 事件类型
+	UserIDType string `json:"userIdType,omitempty"`
+	UserID     string `json:"userId,omitempty"`
 }
 
 type ConvResp struct {

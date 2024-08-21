@@ -116,6 +116,11 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 		CvTime:     time.Now().UnixMilli(),
 	}
 
+	if req.VivoParams.UserIDType != "" {
+		convDateList.UserIDType = req.VivoParams.UserIDType
+		convDateList.UserID = req.VivoParams.UserID
+	}
+
 	convReq := &ConvParams{
 		DataList:    []*DataItem{convDateList},
 		SrcID:       req.VivoParams.SrcID,
