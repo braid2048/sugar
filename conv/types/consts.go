@@ -30,6 +30,7 @@ const (
 	ChannelUc           = "uc"           // uc 阿里汇川
 	ChannelSigmob       = "sigmob"       // sigmob
 	ChannelWeiBo        = "weibo"        // sigmob
+	ChannelHonor        = "honor"        // 荣耀
 )
 
 // 请求类型

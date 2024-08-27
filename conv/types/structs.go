@@ -16,6 +16,7 @@ type ConvReq struct {
 	BaiDuParams    *BaiduConv    `json:"baidu_params" structs:"baidu_params"`
 	UCParams       *UcConv       `json:"uc_params" structs:"uc_params"`
 	WeiBoParams    *WeiBoConv    `json:"weibo_params" structs:"weibo_params"`
+	HonorParams    *HonorConv    `json:"honor_params" structs:"honor_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -170,4 +171,12 @@ type WeiBoLandParams struct {
 	Time     int64  `json:"time" structs:"time"`         // 转化时间,毫秒时间戳;必传
 	MarkID   string `json:"mark_id" structs:"mark_id"`   // mark_id允许为空，此时为自然量 需要urlencode一次，请不要多次urlencode
 	Behavior string `json:"behavior" structs:"behavior"` // 行为码;必传
+}
+
+type HonorConv struct {
+	TrackID        string `json:"trackId" structs:"trackId"` // 回传ID
+	ConversionID   string `json:"conversionId" structs:"conversionId"`
+	ConversionTime int64  `json:"conversionTime" structs:"conversionTime"`
+	AdvertiserID   string `json:"advertiserId" structs:"advertiserId"`
+	OaID           string `json:"oaid" structs:"oaid"`
 }

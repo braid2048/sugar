@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/braid2048/sugar/conv/handler"
 	"github.com/braid2048/sugar/conv/handler/baidu"
+	"github.com/braid2048/sugar/conv/handler/honor"
 	"github.com/braid2048/sugar/conv/handler/huawei"
 	"github.com/braid2048/sugar/conv/handler/kuaishou"
 	"github.com/braid2048/sugar/conv/handler/ocan"
@@ -30,6 +31,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelBaidu:        baidu.New(),
 	types.ChannelUc:           uc.New(),
 	types.ChannelWeiBo:        weibo.New(),
+	types.ChannelHonor:        honor.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {
