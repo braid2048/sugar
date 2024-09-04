@@ -15,6 +15,7 @@ import (
 	"github.com/braid2048/sugar/conv/handler/uc"
 	"github.com/braid2048/sugar/conv/handler/vivo"
 	"github.com/braid2048/sugar/conv/handler/weibo"
+	"github.com/braid2048/sugar/conv/handler/wifi"
 	"github.com/braid2048/sugar/conv/types"
 )
 
@@ -32,6 +33,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelUc:           uc.New(),
 	types.ChannelWeiBo:        weibo.New(),
 	types.ChannelHonor:        honor.New(),
+	types.ChannelWifi:         wifi.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

@@ -326,6 +326,38 @@
   convRes, err := convH.DoConv(ctx, convReq)
   ```
 
+- ###### wifi万能钥匙
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "oppo",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          WifiParams: &types.WifiConv{
+              Cid:       "xxx",  // 广告创意 ID ; 取值来⾃监测
+              Sid:       "xxx",  // 广告检索 ID ; 必填 ; 取值来⾃监测
+              STime:     "xxx",  // 广告检索时间 ; 取值来⾃监测
+              Os:        "xxx",  // 移动端系统说明 ; 取值来⾃监测
+              Idfa:      "xxx",  // iOS 设备的 IDFA 的 Md5 值 ; 取值来⾃监测
+              Mac:       "xxx",  // 设备 MAC 的 Md5 值 ; 取值来⾃监测
+              Imei:      "xxx",  // Android 设备 imei 的 Md5 值 ; 取值来⾃监测
+              ClientId:  "xxx",  // 由 WiFi 万能钥匙分配
+              EventType: "xxx",  // 1 激活 2 注册 3 付费 5 次留 6 关键行为 7 18天腊货 8 30天拉活 18 ⼩程序唤起（ 快应⽤类别回传到关键⾏为）
+              Ts:        "xxx",  // 秒级时间戳
+              SecretKey: "xxx",  // 签名的盐 ; 必填
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("wkanx")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
 
 
 ##### 依赖包：

@@ -17,6 +17,7 @@ type ConvReq struct {
 	UCParams       *UcConv       `json:"uc_params" structs:"uc_params"`
 	WeiBoParams    *WeiBoConv    `json:"weibo_params" structs:"weibo_params"`
 	HonorParams    *HonorConv    `json:"honor_params" structs:"honor_params"`
+	WifiParams     *WifiConv     `json:"wifi_params" structs:"wifi_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -179,4 +180,18 @@ type HonorConv struct {
 	ConversionTime int64  `json:"conversionTime" structs:"conversionTime"`
 	AdvertiserID   string `json:"advertiserId" structs:"advertiserId"`
 	OaID           string `json:"oaid" structs:"oaid"`
+}
+
+type WifiConv struct {
+	Cid       string `json:"cid" structs:"cid"`               // 广告创意 ID
+	Sid       string `json:"sid" structs:"sid"`               // 广告检索 ID ; 必填
+	STime     string `json:"stime" structs:"stime"`           // 广告检索时间
+	Os        string `json:"os" structs:"os"`                 // 0 安卓 1 ios
+	Idfa      string `json:"idfa" structs:"idfa"`             // iOS 设备的 IDFA 的 Md5 值
+	Mac       string `json:"mac" structs:"mac"`               // 设备 MAC 的 Md5 值
+	Imei      string `json:"imei" structs:"imei"`             // Android 设备 imei 的 Md5 值
+	ClientId  string `json:"clientid" structs:"clientid"`     // 由 WiFi 万能钥匙分配
+	EventType string `json:"event_type" structs:"event_type"` // 1 激活 2 注册 3 付费 5 次留 6 关键行为 7 18天腊货 8 30天拉活 18 ⼩程序唤起（ 快应⽤类别回传到关键⾏为）
+	Ts        string `json:"ts" structs:"ts"`                 // 时间戳
+	SecretKey string `json:"secret_key" structs:"secret_key"` // 签名的盐
 }
