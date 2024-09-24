@@ -2,6 +2,7 @@ package honor
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -88,11 +89,22 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 
 // MakeReq 构造请求参数
 func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
-	now := time.Now().UnixMilli()
-
-	req.HonorParams.ConversionTime = now
+	// 如果回传时间戳没传，这个给
+	if req.HonorParams.ConversionTime == 0 {
+		req.HonorParams.ConversionTime = time.Now().UnixMilli()
+	}
 
 	mapParams := structs.Map(req.HonorParams)
+
+	// 额外字段是json结构，需要转成字符串
+	if req.HonorParams.Extra != nil {
+		extra, err := json.Marshal(req.HonorParams.Extra)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal honor extra: %w", err)
+		}
+
+		mapParams["extra"] = string(extra)
+	}
 
 	u, err := url.Parse(honorConvURL)
 	if err != nil {

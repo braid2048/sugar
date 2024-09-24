@@ -358,6 +358,36 @@
   convRes, err := convH.DoConv(ctx, convReq)
   ```
 
+- ###### honor
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "honor",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          HonorParams: &types.HonorConv{
+              TrackID:        "aa",  // 回传ID，取自监测，必传
+		      ConversionID:   "bb",  // 转化事件类型id ， 必传
+		      ConversionTime: 123,   // 转化时间，毫秒级时间戳，必传
+		      AdvertiserID:   "cc",  // 广告主id，必传，取自监测
+		      OaID:           "dd",  // oaid
+		      Extra: &HonorExtra{    // 额外参数，注意目前只在事件是关键行为（900401）时必传
+			      PkgName: "aa", // 包名
+			      AppName: "bb", // 应用名
+		      },
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("honor")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
 
 
 ##### 依赖包：

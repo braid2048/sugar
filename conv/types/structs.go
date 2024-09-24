@@ -174,12 +174,20 @@ type WeiBoLandParams struct {
 	Behavior string `json:"behavior" structs:"behavior"` // 行为码;必传
 }
 
+// HonorConv 荣耀
 type HonorConv struct {
-	TrackID        string `json:"trackId" structs:"trackId"` // 回传ID
-	ConversionID   string `json:"conversionId" structs:"conversionId"`
-	ConversionTime int64  `json:"conversionTime" structs:"conversionTime"`
-	AdvertiserID   string `json:"advertiserId" structs:"advertiserId"`
-	OaID           string `json:"oaid" structs:"oaid"`
+	TrackID        string      `json:"trackId" structs:"trackId"`               // 回传ID，取自监测
+	ConversionID   string      `json:"conversionId" structs:"conversionId"`     // 转化类型id
+	ConversionTime int64       `json:"conversionTime" structs:"conversionTime"` // 毫秒级时间戳
+	AdvertiserID   string      `json:"advertiserId" structs:"advertiserId"`     // 广告主id，取自监测
+	OaID           string      `json:"oaid" structs:"oaid"`
+	Extra          *HonorExtra `json:"extra" structs:"extra"` // 额外参数，当事件是900401关键行为时，这个字段必填
+}
+
+// HonorExtra 荣耀回传额外字段
+type HonorExtra struct {
+	PkgName string `json:"pkgName" structs:"pkgName"` // 包名
+	AppName string `json:"appName" structs:"appName"` // 应用名称
 }
 
 type WifiConv struct {
