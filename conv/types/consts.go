@@ -29,8 +29,9 @@ const (
 	ChannelWifi         = "wkanx"        // wifi万能钥匙
 	ChannelUc           = "uc"           // uc 阿里汇川
 	ChannelSigmob       = "sigmob"       // sigmob
-	ChannelWeiBo        = "weibo"        // sigmob
+	ChannelWeiBo        = "weibo"        // 微博
 	ChannelHonor        = "honor"        // 荣耀
+	ChannelMagic        = "magic"        // magic
 )
 
 // 请求类型

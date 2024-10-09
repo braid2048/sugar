@@ -18,6 +18,7 @@ type ConvReq struct {
 	WeiBoParams    *WeiBoConv    `json:"weibo_params" structs:"weibo_params"`
 	HonorParams    *HonorConv    `json:"honor_params" structs:"honor_params"`
 	WifiParams     *WifiConv     `json:"wifi_params" structs:"wifi_params"`
+	MagicParams    *MagicConv    `json:"magic_params" structs:"magic_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -202,4 +203,10 @@ type WifiConv struct {
 	EventType string `json:"event_type" structs:"event_type"` // 1 激活 2 注册 3 付费 5 次留 6 关键行为 7 18天腊货 8 30天拉活 18 ⼩程序唤起（ 快应⽤类别回传到关键⾏为）
 	Ts        string `json:"ts" structs:"ts"`                 // 时间戳
 	SecretKey string `json:"secret_key" structs:"secret_key"` // 签名的盐
+}
+
+// MagicConv magic
+type MagicConv struct {
+	MgcCb string `json:"mgc_cb" structs:"mgc_cb"` // callback
+	Event string `json:"event" structs:"event"`   // 转化事件
 }
