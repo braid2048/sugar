@@ -32,6 +32,7 @@ const (
 	ChannelWeiBo        = "weibo"        // 微博
 	ChannelHonor        = "honor"        // 荣耀
 	ChannelMagic        = "magic"        // magic
+	ChannelOctopus      = "octopus"      // 章鱼互动
 )
 
 // 请求类型

@@ -9,6 +9,7 @@ import (
 	"github.com/braid2048/sugar/conv/handler/kuaishou"
 	"github.com/braid2048/sugar/conv/handler/magic"
 	"github.com/braid2048/sugar/conv/handler/ocan"
+	"github.com/braid2048/sugar/conv/handler/octopus"
 	"github.com/braid2048/sugar/conv/handler/oppo"
 	"github.com/braid2048/sugar/conv/handler/oppoHap"
 	"github.com/braid2048/sugar/conv/handler/qutoutiao"
@@ -36,6 +37,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelHonor:        honor.New(),
 	types.ChannelWifi:         wifi.New(),
 	types.ChannelMagic:        magic.New(),
+	types.ChannelOctopus:      octopus.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

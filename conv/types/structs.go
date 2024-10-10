@@ -19,6 +19,7 @@ type ConvReq struct {
 	HonorParams    *HonorConv    `json:"honor_params" structs:"honor_params"`
 	WifiParams     *WifiConv     `json:"wifi_params" structs:"wifi_params"`
 	MagicParams    *MagicConv    `json:"magic_params" structs:"magic_params"`
+	OctopusParams  *OctopusConv  `json:"octopus_params" structs:"octopus_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -209,4 +210,11 @@ type WifiConv struct {
 type MagicConv struct {
 	MgcCb string `json:"mgc_cb" structs:"mgc_cb"` // callback
 	Event string `json:"event" structs:"event"`   // 转化事件
+}
+
+// OctopusConv 章鱼互动
+type OctopusConv struct {
+	Callback  string `json:"callback" structs:"callback"`
+	EventType string `json:"event_type" structs:"event_type"` // 回传事件
+	Timestamp int64  `json:"timestamp" structs:"timestamp"`   // 毫秒级
 }
