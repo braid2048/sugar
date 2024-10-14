@@ -434,6 +434,28 @@
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
   ```
+- ###### 喜马拉雅
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "honor",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          XmlyParams: &types.XmlyConv{
+              Callback:        "aa",  // 未解码的callback，监测链接获取原值，必传
+              Type:   "act",  // 转化事件，从新pid回传配置中获取，必传
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("xmly")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
 
 
 

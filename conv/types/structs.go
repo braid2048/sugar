@@ -20,6 +20,7 @@ type ConvReq struct {
 	WifiParams     *WifiConv     `json:"wifi_params" structs:"wifi_params"`
 	MagicParams    *MagicConv    `json:"magic_params" structs:"magic_params"`
 	OctopusParams  *OctopusConv  `json:"octopus_params" structs:"octopus_params"`
+	XmlyParams     *XmlyConv     `json:"xmly_params" structs:"xmly_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -217,4 +218,10 @@ type OctopusConv struct {
 	Callback  string `json:"callback" structs:"callback"`
 	EventType string `json:"event_type" structs:"event_type"` // 回传事件
 	Timestamp int64  `json:"timestamp" structs:"timestamp"`   // 毫秒级
+}
+
+// XmlyConv 喜马拉雅
+type XmlyConv struct {
+	Callback string `json:"callback" structs:"callback"` // callback
+	Type     string `json:"type" structs:"type"`         // 转化事件
 }

@@ -33,6 +33,7 @@ const (
 	ChannelHonor        = "honor"        // 荣耀
 	ChannelMagic        = "magic"        // magic
 	ChannelOctopus      = "octopus"      // 章鱼互动
+	ChannelXmly         = "xmly"         // 喜马拉雅
 )
 
 // 请求类型
