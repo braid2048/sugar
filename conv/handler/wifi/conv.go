@@ -42,7 +42,7 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 
 	// step4. 整理
 	res := &types.ConvRes{
-		IsSuccess: respCode != http.StatusOK,
+		IsSuccess: respCode == http.StatusOK,
 		Channel:   req.BaseParams.Channel,
 		Request: &types.ChannelRequestData{
 			ReqType: types.RequestTypeHttp,
