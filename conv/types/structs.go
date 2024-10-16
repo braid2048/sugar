@@ -21,6 +21,7 @@ type ConvReq struct {
 	MagicParams    *MagicConv    `json:"magic_params" structs:"magic_params"`
 	OctopusParams  *OctopusConv  `json:"octopus_params" structs:"octopus_params"`
 	XmlyParams     *XmlyConv     `json:"xmly_params" structs:"xmly_params"`
+	IQiYiParams    *IQiYiConv    `json:"iqiyi_params" structs:"iqiyi_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -224,4 +225,10 @@ type OctopusConv struct {
 type XmlyConv struct {
 	Callback string `json:"callback" structs:"callback"` // callback
 	Type     string `json:"type" structs:"type"`         // 转化事件
+}
+
+// IQiYiConv 爱奇艺
+type IQiYiConv struct {
+	Callback  string `json:"callback" structs:"callback"`     // callback
+	EventType string `json:"event_type" structs:"event_type"` // 转化事件
 }

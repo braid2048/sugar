@@ -34,6 +34,7 @@ const (
 	ChannelMagic        = "magic"        // magic
 	ChannelOctopus      = "octopus"      // 章鱼互动
 	ChannelXmly         = "xmly"         // 喜马拉雅
+	ChannelIQiYi        = "iqiyi"        // 爱奇艺
 )
 
 // 请求类型
