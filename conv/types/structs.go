@@ -22,6 +22,8 @@ type ConvReq struct {
 	OctopusParams  *OctopusConv  `json:"octopus_params" structs:"octopus_params"`
 	XmlyParams     *XmlyConv     `json:"xmly_params" structs:"xmly_params"`
 	IQiYiParams    *IQiYiConv    `json:"iqiyi_params" structs:"iqiyi_params"`
+	YdzxParams     *YdzxConv     `json:"ydzx_params" structs:"ydzx_params"`
+	BideParams     *BideConv     `json:"bide_params" structs:"bide_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -231,4 +233,16 @@ type XmlyConv struct {
 type IQiYiConv struct {
 	Callback  string `json:"callback" structs:"callback"`     // callback
 	EventType string `json:"event_type" structs:"event_type"` // 转化事件
+}
+
+// YdzxConv 有道智选
+type YdzxConv struct {
+	ConvExt    string `json:"conv_ext" structs:"conv_ext"`       // callback
+	ConvAction string `json:"conv_action" structs:"conv_action"` // 转化事件
+}
+
+// BideConv 必得
+type BideConv struct {
+	Callback      string `json:"callback" structs:"callback"`             // callback
+	TransformType string `json:"transform_type" structs:"transform_type"` // 转化事件
 }

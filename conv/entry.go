@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/braid2048/sugar/conv/handler"
 	"github.com/braid2048/sugar/conv/handler/baidu"
+	"github.com/braid2048/sugar/conv/handler/bide"
 	"github.com/braid2048/sugar/conv/handler/honor"
 	"github.com/braid2048/sugar/conv/handler/huawei"
 	"github.com/braid2048/sugar/conv/handler/iqiyi"
@@ -20,6 +21,7 @@ import (
 	"github.com/braid2048/sugar/conv/handler/weibo"
 	"github.com/braid2048/sugar/conv/handler/wifi"
 	"github.com/braid2048/sugar/conv/handler/xmly"
+	"github.com/braid2048/sugar/conv/handler/ydzx"
 	"github.com/braid2048/sugar/conv/types"
 )
 
@@ -42,6 +44,8 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelOctopus:      octopus.New(),
 	types.ChannelXmly:         xmly.New(),
 	types.ChannelIQiYi:        iqiyi.New(),
+	types.ChannelYdzx:         ydzx.New(),
+	types.ChannelBide:         bide.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

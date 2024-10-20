@@ -35,6 +35,8 @@ const (
 	ChannelOctopus      = "octopus"      // 章鱼互动
 	ChannelXmly         = "xmly"         // 喜马拉雅
 	ChannelIQiYi        = "iqiyi"        // 爱奇艺
+	ChannelBide         = "bide"         // 必得
+	ChannelYdzx         = "ydzx"         // 有道智选
 )
 
 // 请求类型
