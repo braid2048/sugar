@@ -70,7 +70,7 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 
 // MakeReq 构造请求参数
 func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
-	callback := fmt.Sprintf("%s?conv_ext=%v&conv_action=%v", "http://conv.youdao.com/api/track", req.YdzxParams.ConvExt, req.YdzxParams.ConvAction)
+	callback := fmt.Sprintf("%s?conv_ext=%v&conv_action=%v", "https://conv.youdao.com/api/track", req.YdzxParams.ConvExt, req.YdzxParams.ConvAction)
 
 	return &HandlerReq{Req: callback}, nil
 }
