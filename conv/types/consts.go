@@ -37,6 +37,7 @@ const (
 	ChannelIQiYi        = "iqiyi"        // 爱奇艺
 	ChannelBide         = "bide"         // 必得
 	ChannelYdzx         = "ydzx"         // 有道智选
+	ChannelAlipay       = "alipay"       // 阿里灯火
 )
 
 // 请求类型

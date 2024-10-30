@@ -524,6 +524,34 @@
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
   ```
+- ###### 支付宝（阿里灯火）
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "honor",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          AlipayParams: &types.AlipayConv{
+              AppID:        "aa",  // 支付宝分配给开发者的应用ID 必填
+              PrivateKey:   "xx",  // 应用私钥 必填
+              BizToken:     "xx",  // 业务令牌，访问灯火平台的token，必填
+              PrincipalTag:     "xx", // 商家标签，必填
+              BizNo:     "xx", // 转化流水号，由商家自主定义作为转化数据唯一标识 , 必填
+              ConversionType:     "xx", // 转化事件类型，必填
+              ConversionTime:     12345, // 转化时间，秒级时间戳
+              callback_ext_info:  "xx", // callback , 监测获取，必填
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("alipay")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
 
 
 ##### 依赖包：

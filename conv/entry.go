@@ -3,6 +3,7 @@ package conv
 import (
 	"fmt"
 	"github.com/braid2048/sugar/conv/handler"
+	"github.com/braid2048/sugar/conv/handler/alipay"
 	"github.com/braid2048/sugar/conv/handler/baidu"
 	"github.com/braid2048/sugar/conv/handler/bide"
 	"github.com/braid2048/sugar/conv/handler/honor"
@@ -46,6 +47,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelIQiYi:        iqiyi.New(),
 	types.ChannelYdzx:         ydzx.New(),
 	types.ChannelBide:         bide.New(),
+	types.ChannelAlipay:       alipay.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

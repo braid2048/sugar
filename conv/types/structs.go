@@ -24,6 +24,7 @@ type ConvReq struct {
 	IQiYiParams    *IQiYiConv    `json:"iqiyi_params" structs:"iqiyi_params"`
 	YdzxParams     *YdzxConv     `json:"ydzx_params" structs:"ydzx_params"`
 	BideParams     *BideConv     `json:"bide_params" structs:"bide_params"`
+	AlipayParams   *AlipayConv   `json:"alipay_params" structs:"alipay_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -245,4 +246,15 @@ type YdzxConv struct {
 type BideConv struct {
 	Callback      string `json:"callback" structs:"callback"`             // callback
 	TransformType string `json:"transform_type" structs:"transform_type"` // 转化事件
+}
+
+type AlipayConv struct {
+	AppID           string `json:"app_id" structs:"app_id"`                       // 支付宝分配给开发者的应用ID 必填
+	PrivateKey      string `json:"private_key" structs:"private_key"`             // 应用私钥 必填
+	BizToken        string `json:"biz_token" structs:"biz_token"`                 // 业务令牌，访问灯火平台的token，必填
+	PrincipalTag    string `json:"principal_tag" structs:"principal_tag"`         // 商家标签，必填
+	BizNo           string `json:"biz_no" structs:"biz_no"`                       // 转化流水号，由商家自主定义作为转化数据唯一标识 , 必填
+	ConversionType  string `json:"conversion_type" structs:"conversion_type"`     // 转化类型，必填
+	ConversionTime  int64  `json:"conversion_time" structs:"conversion_time"`     // 转化时间，秒级时间戳，必填
+	CallbackExtInfo string `json:"callback_ext_info" structs:"callback_ext_info"` // callback , 必填
 }
