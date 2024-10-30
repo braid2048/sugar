@@ -69,6 +69,8 @@ type PropertyListItem struct {
 }
 
 func (o *OpenAPIReq) GetSignOfRSA2(privateKey string) (string, error) {
+	// 初始化私钥
+	privateKey = FormatAlipayPrivateKey(privateKey)
 	// step1. 转化map,剔除sign字段
 	m := structs.Map(o)
 	// 提取key并排序
@@ -110,4 +112,32 @@ func (o *OpenAPIReq) GetSignOfRSA2(privateKey string) (string, error) {
 	}
 	// step6. base64编码
 	return base64.StdEncoding.EncodeToString(signature), nil
+}
+
+// FormatAlipayPrivateKey 格式化支付宝普通应用秘钥
+func FormatAlipayPrivateKey(privateKey string) (pKey string) {
+	var buffer strings.Builder
+	buffer.WriteString("-----BEGIN RSA PRIVATE KEY-----\n")
+	rawLen := 64
+	keyLen := len(privateKey)
+	raws := keyLen / rawLen
+	temp := keyLen % rawLen
+	if temp > 0 {
+		raws++
+	}
+	start := 0
+	end := start + rawLen
+	for i := 0; i < raws; i++ {
+		if i == raws-1 {
+			buffer.WriteString(privateKey[start:])
+		} else {
+			buffer.WriteString(privateKey[start:end])
+		}
+		buffer.WriteByte('\n')
+		start += rawLen
+		end = start + rawLen
+	}
+	buffer.WriteString("-----END RSA PRIVATE KEY-----\n")
+	pKey = buffer.String()
+	return
 }

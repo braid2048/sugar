@@ -544,7 +544,7 @@
               BizNo:     "xx", // 转化流水号，由商家自主定义作为转化数据唯一标识 , 必填
               ConversionType:     "xx", // 转化事件类型，必填
               ConversionTime:     12345, // 转化时间，秒级时间戳
-              callback_ext_info:  "xx", // callback , 监测获取，必填
+              CallbackExtInfo:  "xx", // callback , 监测获取，必填
           },
   }
   // step2. 获取回传工厂的实例
