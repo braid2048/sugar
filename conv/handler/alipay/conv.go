@@ -15,8 +15,8 @@ import (
 type Handler struct{}
 
 type HandlerReq struct {
-	Req *OpenAPIReq `json:"req" structs:"req"`
-	URL string      `json:"url" structs:"url"`
+	Req map[string]string `json:"req" structs:"req"`
+	URL string            `json:"url" structs:"url"`
 }
 
 func New() *Handler {
@@ -33,13 +33,8 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 	if err != nil {
 		return nil, fmt.Errorf("alipay-conv -- MakeReq err: %w", err)
 	}
-	// step3. 解析body
-	body, err := json.Marshal(convReq.Req)
-	if err != nil {
-		return nil, fmt.Errorf("alipay-conv -- body json err: %w", err)
-	}
 	// step4. 回传
-	respCode, respBody, err := utils.SendPostRequest(ctx, convReq.URL, map[string]string{"Content-Type": "application/json"}, body)
+	respCode, respBody, err := utils.SendPOSTFormData(ctx, convReq.URL, map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, convReq.Req)
 	if err != nil {
 		return nil, fmt.Errorf("alipay-conv -- send request err: %w", err)
 	}
@@ -112,10 +107,10 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 			ConversionTime: req.AlipayParams.ConversionTime,
 			ConversionType: req.AlipayParams.ConversionType,
 			PrincipalTag:   req.AlipayParams.PrincipalTag,
-			PropertyList:   []*PropertyListItem{},
-			Source:         ConversionSource,
-			UuID:           ConversionUuID,
-			UuIDType:       ConversionUuIDType,
+			//PropertyList:   []*PropertyListItem{},
+			Source:   ConversionSource,
+			UuID:     ConversionUuID,
+			UuIDType: ConversionUuIDType,
 		}},
 	}
 	// callback urlDecode
@@ -137,8 +132,16 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 	if err != nil {
 		return nil, fmt.Errorf("get sign err: %w", err)
 	}
+	// 转为map
+	formParam := make(map[string]string)
 
-	return &HandlerReq{Req: openAPIReq, URL: OpenAPIURL}, nil
+	for k, v := range structs.Map(openAPIReq) {
+		formParam[k] = fmt.Sprintf("%v", v)
+	}
+
+	formParam["sign"] = openAPIReq.Sign
+
+	return &HandlerReq{Req: formParam, URL: OpenAPIURL}, nil
 }
 
 // MakeRes 解析响应
@@ -155,6 +158,7 @@ func (h *Handler) MakeRes(respCode int, resBody []byte, req *types.ConvReq, Hand
 			ResData:    string(resBody),
 		},
 	}
+
 	// step2. 判断响应码
 	if respCode >= http.StatusBadRequest {
 		res.IsSuccess = false

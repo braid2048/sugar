@@ -52,15 +52,15 @@ type BizContentReq struct {
 }
 
 type ConversionData struct {
-	Source          string              `json:"source" structs:"source"`                       // 来源，固定为 “COMMON_TARGET”
-	PrincipalTag    string              `json:"principal_tag" structs:"principal_tag"`         // 商家标签
-	BizNo           string              `json:"biz_no" structs:"biz_no"`                       // 转化流水号，商家定义的唯一标识
-	ConversionType  string              `json:"conversion_type" structs:"conversion_type"`     // 转化事件类型
-	PropertyList    []*PropertyListItem `json:"property_list" structs:"property_list"`         // 归因字段
-	ConversionTime  int64               `json:"conversion_time" structs:"conversion_time"`     // 转化规则时间戳，秒级
-	UuIDType        string              `json:"uuid_type" structs:"uuid_type"`                 // 枚举值，固定“PID”
-	UuID            string              `json:"uuid" structs:"uuid"`                           // 转化用户，固定“2088UID”
-	CallbackExtInfo string              `json:"callback_ext_info" structs:"callback_ext_info"` // callback
+	Source         string `json:"source" structs:"source"`                   // 来源，固定为 “COMMON_TARGET”
+	PrincipalTag   string `json:"principal_tag" structs:"principal_tag"`     // 商家标签
+	BizNo          string `json:"biz_no" structs:"biz_no"`                   // 转化流水号，商家定义的唯一标识
+	ConversionType string `json:"conversion_type" structs:"conversion_type"` // 转化事件类型
+	//PropertyList    []*PropertyListItem `json:"property_list" structs:"property_list"`         // 归因字段
+	ConversionTime  int64  `json:"conversion_time" structs:"conversion_time"`     // 转化规则时间戳，秒级
+	UuIDType        string `json:"uuid_type" structs:"uuid_type"`                 // 枚举值，固定“PID”
+	UuID            string `json:"uuid" structs:"uuid"`                           // 转化用户，固定“2088UID”
+	CallbackExtInfo string `json:"callback_ext_info" structs:"callback_ext_info"` // callback
 }
 
 type PropertyListItem struct {
@@ -69,8 +69,6 @@ type PropertyListItem struct {
 }
 
 func (o *OpenAPIReq) GetSignOfRSA2(privateKey string) (string, error) {
-	// 初始化私钥
-	privateKey = FormatAlipayPrivateKey(privateKey)
 	// step1. 转化map,剔除sign字段
 	m := structs.Map(o)
 	// 提取key并排序
@@ -92,13 +90,9 @@ func (o *OpenAPIReq) GetSignOfRSA2(privateKey string) (string, error) {
 
 	waitSignStr = strings.Join(waitSignSlice, "&")
 	// step3. 创建私钥对象
-	block, _ := pem.Decode([]byte(privateKey))
-	if block == nil {
-		return "", fmt.Errorf("无效的私钥格式")
-	}
-	parsedKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+	parsedKey, err := ParsePrivateKey(FormatAlipayPrivateKey(privateKey))
 	if err != nil {
-		return "", fmt.Errorf("解析私钥失败: %v", err)
+		return "", fmt.Errorf("解析RSA私钥失败: %v", err)
 	}
 	// step4. 初始化签名函数
 	hash := crypto.SHA256
@@ -140,4 +134,31 @@ func FormatAlipayPrivateKey(privateKey string) (pKey string) {
 	buffer.WriteString("-----END RSA PRIVATE KEY-----\n")
 	pKey = buffer.String()
 	return
+}
+
+// ParsePrivateKey 解析PKCS#1或PKCS#8格式的RSA私钥
+func ParsePrivateKey(privateKey string) (*rsa.PrivateKey, error) {
+	block, _ := pem.Decode([]byte(privateKey))
+	if block == nil {
+		return nil, fmt.Errorf("无效的私钥格式")
+	}
+
+	// 尝试解析PKCS#1格式
+	if parsedKey, err := x509.ParsePKCS1PrivateKey(block.Bytes); err == nil {
+		return parsedKey, nil
+	}
+
+	// 尝试解析PKCS#8格式
+	parsedKey, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+	if err != nil {
+		return nil, fmt.Errorf("解析私钥失败: %v", err)
+	}
+
+	// 断言为 *rsa.PrivateKey 类型
+	rsaKey, ok := parsedKey.(*rsa.PrivateKey)
+	if !ok {
+		return nil, fmt.Errorf("解析的私钥不是RSA私钥")
+	}
+
+	return rsaKey, nil
 }
