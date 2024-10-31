@@ -34,7 +34,7 @@ func (h *Handler) DoConv(ctx context.Context, req *types.ConvReq) (*types.ConvRe
 		return nil, fmt.Errorf("alipay-conv -- MakeReq err: %w", err)
 	}
 	// step4. 回传
-	respCode, respBody, err := utils.SendPOSTFormData(ctx, convReq.URL, map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, convReq.Req)
+	respCode, respBody, err := utils.SendPOSTFormData(ctx, convReq.URL, map[string]string{"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}, convReq.Req)
 	if err != nil {
 		return nil, fmt.Errorf("alipay-conv -- send request err: %w", err)
 	}
