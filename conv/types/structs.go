@@ -145,10 +145,12 @@ type TencentConv struct {
 
 // BaiduConv 百度
 type BaiduConv struct {
-	CallBack string `structs:"callback" json:"callback"` // 回传地址
-	AType    string `json:"a_type"  structs:"a_type"`    // 转化类型
-	AValue   string `json:"a_value"  structs:"a_value"`  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
-	Akey     string `json:"akey"  structs:"akey"`        // 签名
+	CallBack  string `structs:"callback" json:"callback"` // 回传地址
+	AType     string `json:"a_type"  structs:"a_type"`    // 转化类型
+	AValue    string `json:"a_value"  structs:"a_value"`  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
+	Akey      string `json:"akey"  structs:"akey"`        // 签名
+	OaID      string `json:"oaid"  structs:"oaid"`
+	AndroidID string `json:"android_id"  structs:"android_id"`
 }
 
 // UcConv uc阿里汇川
