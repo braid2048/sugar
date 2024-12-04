@@ -70,7 +70,7 @@ func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 	// step1. 构造callback
 	convURL := strings.Replace(strings.Replace(req.BaiDuParams.CallBack, "{{ATYPE}}", req.BaiDuParams.AType, 1), "{{AVALUE}}", req.BaiDuParams.AValue, 1)
 	// step2. 获取签名并拼接
-	res := &HandlerReq{Req: fmt.Sprintf("%s&sign=%s&join_type=ip&oaid=%v&android_id=%v", convURL, h.GetSign(convURL, req.BaiDuParams.Akey), req.BaiDuParams.OaID, req.BaiDuParams.AndroidID)}
+	res := &HandlerReq{Req: fmt.Sprintf("%s&sign=%s&join_type=ip&oaid=%v&android_id=%v&bd_vid=%v", convURL, h.GetSign(convURL, req.BaiDuParams.Akey), req.BaiDuParams.OaID, req.BaiDuParams.AndroidID, req.BaiDuParams.BdVID)}
 
 	return res, nil
 }

@@ -151,6 +151,7 @@ type BaiduConv struct {
 	Akey      string `json:"akey"  structs:"akey"`        // 签名
 	OaID      string `json:"oaid"  structs:"oaid"`
 	AndroidID string `json:"android_id"  structs:"android_id"`
+	BdVID     string `json:"bd_vid"  structs:"bd_vid"`
 }
 
 // UcConv uc阿里汇川
