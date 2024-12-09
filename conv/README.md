@@ -261,7 +261,8 @@
              AValue:"0",  // 转化指标 ， 转化类型为付费时，该字段定为付费金额-单位(分) ，无转化金额回传时，数值填写为“0”即可
              Akey:"xx",        // 签名
              OaID:"xx", 
-             BdVID:"xx", 
+             BdVID:"xx",
+             JoinType:"xx", 
              AndroidID:"xxx"  
           },
       }
