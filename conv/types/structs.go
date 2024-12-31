@@ -25,6 +25,7 @@ type ConvReq struct {
 	YdzxParams     *YdzxConv     `json:"ydzx_params" structs:"ydzx_params"`
 	BideParams     *BideConv     `json:"bide_params" structs:"bide_params"`
 	AlipayParams   *AlipayConv   `json:"alipay_params" structs:"alipay_params"`
+	SigMobParams   *SigMobConv   `json:"sigmob_params" structs:"sigmob_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -261,4 +262,9 @@ type AlipayConv struct {
 	ConversionType  string `json:"conversion_type" structs:"conversion_type"`     // 转化类型，必填
 	ConversionTime  int64  `json:"conversion_time" structs:"conversion_time"`     // 转化时间，秒级时间戳，必填
 	CallbackExtInfo string `json:"callback_ext_info" structs:"callback_ext_info"` // callback , 必填
+}
+
+// SigMobConv sigmob
+type SigMobConv struct {
+	Callback string `json:"callback" structs:"callback"` // callback
 }

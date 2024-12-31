@@ -556,6 +556,27 @@
   // step3. 调用回传
   convRes, err := convH.DoConv(ctx, convReq)
   ```
+- ###### sigmob
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "honor",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          SigMobParams: &types.SigMobConv{
+              Callback:        "aa",  // 必填，监测获取
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("sigmob")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
 
 
 ##### 依赖包：

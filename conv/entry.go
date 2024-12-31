@@ -16,6 +16,7 @@ import (
 	"github.com/braid2048/sugar/conv/handler/oppo"
 	"github.com/braid2048/sugar/conv/handler/oppoHap"
 	"github.com/braid2048/sugar/conv/handler/qutoutiao"
+	"github.com/braid2048/sugar/conv/handler/sigmob"
 	"github.com/braid2048/sugar/conv/handler/tencent"
 	"github.com/braid2048/sugar/conv/handler/uc"
 	"github.com/braid2048/sugar/conv/handler/vivo"
@@ -48,6 +49,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelYdzx:         ydzx.New(),
 	types.ChannelBide:         bide.New(),
 	types.ChannelAlipay:       alipay.New(),
+	types.ChannelSigmob:       sigmob.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {
