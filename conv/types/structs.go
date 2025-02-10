@@ -26,6 +26,7 @@ type ConvReq struct {
 	BideParams     *BideConv     `json:"bide_params" structs:"bide_params"`
 	AlipayParams   *AlipayConv   `json:"alipay_params" structs:"alipay_params"`
 	SigMobParams   *SigMobConv   `json:"sigmob_params" structs:"sigmob_params"`
+	WangMaiParams  *WangMaiConv  `json:"wangmai_params" structs:"wangmai_params"`
 }
 
 // ChannelRequestData 渠道请求数据
@@ -267,4 +268,10 @@ type AlipayConv struct {
 // SigMobConv sigmob
 type SigMobConv struct {
 	Callback string `json:"callback" structs:"callback"` // callback
+}
+
+// WangMaiConv 旺脉
+type WangMaiConv struct {
+	Callback  string `json:"callback" structs:"callback"`     // callback
+	EventType string `json:"event_type" structs:"event_type"` // 转化事件
 }

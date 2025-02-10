@@ -578,6 +578,29 @@
   convRes, err := convH.DoConv(ctx, convReq)
   ```
 
+- ###### 旺脉
+
+  ```
+  // step1. 构造请求参数
+  convReq := &types.ConvReq{
+          BaseParams: &types.BaseConv{		// ---- 基础参数都是必传
+              PID:     "test_pid_01",
+              AdID:    "test_adid_01",
+              Channel: "honor",
+              Brand:   "huawei",
+              Ip:      "127.0.0.1",
+          },
+          WangMaiParams: &types.WangMaiConv{
+              Callback:        "aa",  // 回传地址，监测链接参数中获取，必传
+              EventType:   "101",  // 转化事件，从pid配置中获取，必传
+          },
+  }
+  // step2. 获取回传工厂的实例
+  convH, err := conv.NewChannelHandler("wangmai")
+  // step3. 调用回传
+  convRes, err := convH.DoConv(ctx, convReq)
+  ```
+
 
 ##### 依赖包：
 

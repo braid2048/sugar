@@ -20,6 +20,7 @@ import (
 	"github.com/braid2048/sugar/conv/handler/tencent"
 	"github.com/braid2048/sugar/conv/handler/uc"
 	"github.com/braid2048/sugar/conv/handler/vivo"
+	"github.com/braid2048/sugar/conv/handler/wangmai"
 	"github.com/braid2048/sugar/conv/handler/weibo"
 	"github.com/braid2048/sugar/conv/handler/wifi"
 	"github.com/braid2048/sugar/conv/handler/xmly"
@@ -50,6 +51,7 @@ var ChannelHandlers = map[string]handler.IChannelHandler{
 	types.ChannelBide:         bide.New(),
 	types.ChannelAlipay:       alipay.New(),
 	types.ChannelSigmob:       sigmob.New(),
+	types.ChannelWangMai:      wangmai.New(),
 }
 
 func NewChannelHandler(channel string) (handler.IChannelHandler, error) {

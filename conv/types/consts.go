@@ -38,6 +38,7 @@ const (
 	ChannelBide         = "bide"         // 必得
 	ChannelYdzx         = "ydzx"         // 有道智选
 	ChannelAlipay       = "alipay"       // 阿里灯火
+	ChannelWangMai      = "wangmai"      // 旺脉
 )
 
 // 请求类型
