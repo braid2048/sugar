@@ -14,10 +14,6 @@ type HandlerReq struct {
 	Req string `json:"req" structs:"req"`
 }
 
-const (
-	wangMaiURL = "http://ocpx.adwangmai.com/convert/ttResp.api?"
-)
-
 func New() *Handler {
 	return &Handler{}
 }
@@ -81,7 +77,7 @@ func (h *Handler) Validate(req *types.ConvReq) error {
 // MakeReq 构造请求参数
 func (h *Handler) MakeReq(req *types.ConvReq) (*HandlerReq, error) {
 	// step2. 拼接事件
-	callback := fmt.Sprintf("%s&callback=%v&event_type=%v", wangMaiURL, req.WangMaiParams.Callback, req.WangMaiParams.EventType)
+	callback := fmt.Sprintf("%v&event_type=%v", req.WangMaiParams.Callback, req.WangMaiParams.EventType)
 
 	return &HandlerReq{Req: callback}, nil
 }
